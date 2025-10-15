@@ -1,14 +1,20 @@
 package ateliersansia
 
 func MaxSubArray(nums []int) int {
-	var sommeMax int
-	var sommeAct int
-	if len(nums) == 0{
-		return -1
-	}
-	for i := 0; i < len(nums); i++{
+	sommeMax := 0
+	sommeAct := 0
+	for i:= range nums {
 		if nums[i] >= 0 {
-			
+			sommeAct = nums[i]
+			for j := i + 1; j < len(nums); j++ {
+				if sommeAct >= 0 {
+					sommeAct += nums[j]
+				}
+				if sommeAct > sommeMax{
+					sommeMax = sommeAct
+				}
+			}
 		}
 	}
+	return sommeMax
 }
