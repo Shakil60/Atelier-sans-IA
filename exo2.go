@@ -1,17 +1,35 @@
 package ateliersansia
 
 func CompressRLE(s string) string {
-	var a [3]int
-	var compress string
-	for i := 0; i < len(s); i++{
-		if string(s[i]) == "a"{
-			a[0] += 1
-		} else if string(s[i]) == "b"{
-			a[1] += 1
-		} else if string(s[i]) == "c"{
-			a[2] += 1
+	if len(s) == 0 {
+		return ""
+	}
+
+	compress := ""
+	count := 1
+
+	for i := 1; i < len(s); i++ {
+		if s[i] == s[i-1] {
+			count++
+		} else {
+			compress += string(s[i-1]) + itoa(count)
+			count = 1
 		}
 	}
-	compress = compress + "a" + string(rune(a[0])+48) + "b" + string(rune(a[1])+48) + "c" + string(rune(a[2])+48)
+	// Ajouter le dernier caractère et son compteur
+	compress += string(s[len(s)-1]) + itoa(count)
+
 	return compress
+}
+
+func itoa(n int) string {
+	if n == 0 {
+		return "0"
+	}
+	result := ""
+	for n > 0 {
+		result = string('0'+(n%10)) + result
+		n /= 10
+	}
+	return result
 }
