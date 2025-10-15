@@ -28,7 +28,7 @@ func itoa(n int) string {
 	}
 	result := ""
 	for n > 0 {
-		result = string('0'+(n%10)) + result
+		result = string(rune('0'+(n%10))) + result
 		n /= 10
 	}
 	return result
